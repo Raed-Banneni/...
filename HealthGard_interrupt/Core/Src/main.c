@@ -1,6 +1,4 @@
 
-/* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -11,7 +9,6 @@
 #include "max_30102.h"
 
 /* USER CODE END Includes */
-
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
@@ -74,7 +71,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 			gyro_read();
 			accelmag();
 			pitchandroll(0.95);
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, SET);
+
 		}
 	} else if (GPIO_Pin == GPIO_PIN_6) {
 		//execute mpu6050 code
@@ -84,20 +81,16 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
 		heartRate = max30102_getHeartRate();
 		sprintf((char*) buf, "%u BPM %u SpO2\r\n", ((unsigned int) heartRate),
 				((unsigned int) spo2));
-		HAL_UART_Transmit(&huart2, buf, strlen((char*) buf), 20);
+		send_USART3((char *)buf);
+		//when debugging with the serial console please uncomment the line below
+		//send_USART2((char *)buf);
 
 	}
 
 }
 /* USER CODE END PFP */
-
-
-
-
 int main(void)
 {
-
-
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
@@ -135,11 +128,10 @@ int main(void)
 		}
     /* USER CODE END WHILE */
 
+    /* USER CODE BEGIN 3 */
 	}
-
+  /* USER CODE END 3 */
 }
-
-
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
