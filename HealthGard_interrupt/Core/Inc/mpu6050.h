@@ -2,7 +2,7 @@
  * mpu6050.h
  *
  *  Created on: 24 Mar 2023
- *      Author: lukachangretta
+ *      Author: Raed
  */
 
 #ifndef INC_MPU6050_H_
