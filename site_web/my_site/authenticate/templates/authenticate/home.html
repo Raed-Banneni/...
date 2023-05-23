@@ -1,0 +1,78 @@
+{% extends 'authenticate/base.html' %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% endblock %}
+{% block content %}
+<style>
+	body {
+		background-color: #444444;
+		
+	}
+</style>
+<img src="{% static 'images/logo.png' %}" alt="">
+<div  style="display:flex;align-items: flex-start;flex-direction: column;">
+
+    
+	
+	<div class="container">
+		<div class="row">
+			
+			{%for famille in liste_familles %}
+			 <div class="card ml-5 col-9 col-md-6 col-lg-3 col-xl-3  ">
+				{% if famille.image == "http://default" %}
+               <img src="http://via.placeholder.com/400x400" class="card-img-top" alt="Fissure in Sandstone"/>
+               {% else %}
+			   <h2> <!DOCTYPE html>
+			   <html lang="en">
+			   <head>
+				<meta charset="UTF-8">
+				<meta http-equiv="X-UA-Compatible" content="IE=edge">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Document</title>
+			   </head>
+			   <body>
+				
+			   </body>
+			   </html></h2>
+               <img src="{{ famille.image.url }}" class="card-img-top" alt="Fissure in Sandstone"/>
+               {% endif %}
+		           
+				<div class="card-body" style="height: 220px;">
+				  <p class="card-text" style="color: black; font-weight: bold;" >{{famille.nom}}</p>
+                  <p class="card-text" style="color:black ;font-weight: bold;"  >{{famille.prenom}}</p>
+                  <p class="card-text" style="color:black ;font-weight: bold;" >{{famille.created_at}}</p>
+				  
+				 
+				  {% if forloop.first %}
+                <td>
+                    <a href="{% url 'ajouter_famille' famille.pk %}" class="btn btn-info"><i class="fas fa-edit"></i>Ajouter</a>
+                    
+                </td>
+                {% elif forloop.last %}
+				<td>
+					
+					<a href="{% url 'analyse' famille.id %}" class="btn btn-secondary">Analyse</a>
+				<a href="{% url 'supprimer_famille' famille.pk %}" class="btn btn-danger"><i class="fas fa-trash"></i>Supprimer</a>
+				</td>
+                {% else %}
+                <td>
+					<a href="{% url 'analyse' famille.id %}" class="btn btn-secondary">Analyse</a>
+
+				<a href="{% url 'supprimer_famille' famille.pk %}" class="btn btn-danger"><i class="fas fa-trash"></i>Supprimer</a>
+				</td>
+                {% endif %}
+				  
+				</div>
+				
+			 </div>
+			{% endfor %}
+			
+		</div>
+		
+	</div>
+	
+	
+
+</div>
+{% endblock %}
