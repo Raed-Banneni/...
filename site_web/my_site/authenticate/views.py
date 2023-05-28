@@ -21,7 +21,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import HeartRateSerializer
 import plotly.graph_objs as go
-from datetime import datetime, timedelta
+from django.http import JsonResponse
+from datetime import timedelta
+
 
 
 
@@ -147,10 +149,10 @@ def analyse(request, id_famille):
 
     fig = go.Figure(data=data, layout=layout)
     comment = ""
-    scope = ["https://spreadsheets.google.com/feeds","https://www.googleapis.com/auth/spreadsheets","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name('***************', scope)
+    scope = ["***********************************","**********************","***********************"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name('C:\\Users\\joseph\\Desktop\\User-Authentication-Login-Register-Logout-Python-Django--master\\creds\\creds', scope)
     client = gspread.authorize(creds)
-    sheet = client.open('sheet Name ').sheet1
+    sheet = client.open('pfa1').sheet1
     data = sheet.get_all_records()
     # Récupérer les données de la colonne 1
     column_1 = sheet.col_values(1)
@@ -176,6 +178,9 @@ def analyse(request, id_famille):
         derniere_ligne = DerniereLigne.objects.create(famille=famille_obj, nom=last_row, date=timezone.now())
     context = {"famille": famille_obj, "data":last_row,"chart": fig.to_html()}
     return render(request, 'authenticate/analyse.html', context)
+    
+
+    
 
 
 def historique(request, id_famille):
@@ -195,7 +200,13 @@ class Addfamille(CreateView):
     
     def form_valid(self, form):
         form.instance.user = self.request.user
+        if form.is_valid():
+            form.save()
+            messages.success(self.request, ('/////////////Vous avez ajouté votre patient'))
         return super().form_valid(form)
+
+
+
 
 
    
