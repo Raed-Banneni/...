@@ -4,7 +4,7 @@ const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = 3600;
 const int daylightOffset_sec = 0;
 HTTPClient http;
-String GOOGLE_SCRIPT_ID = "AKfycbynttO9aC2dqHAPtJ9L6BS7tRFdljS06F3DMf-j_eZTvLtepgQRk79j9dT4JLVKp9kf";  // change Gscript ID
+String GOOGLE_SCRIPT_ID = "**************";  // change Gscript ID
 String msg = "";
 const char* frenchWeekdays[] = { "Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi" };
 const char* frenchMonths[] = { "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" };
@@ -30,7 +30,7 @@ void loop() {
     char charvals[bpmspo2.length() + 1];
     bpmspo2.toCharArray(charvals, sizeof(charvals));
     sscanf(charvals, "%d BPM %d SpO2", &bpm, &spo2);
-    http.begin("http://192.168.50.215:8000/api/");       //Specify the URL
+    http.begin("http://***************/api/");       //Specify the URL
     http.addHeader("Content-Type", "application/json");  //set the content type
     String famille = "80";                                                                                        // Famille value to send
     String postBody = "{\"bpm\":" + String(bpm) + ",\"famille\":" + famille + ",\"spo2\":" + String(spo2) + "}";  // Create the JSON string with both fields

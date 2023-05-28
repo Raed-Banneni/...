@@ -6,8 +6,8 @@
 #include <WiFi.h>
 #include <time.h>
 #include <HTTPClient.h>
-#define WIFI_SSID "y9"
-#define WIFI_PASSWORD "1234567800"
+#define WIFI_SSID "*****"
+#define WIFI_PASSWORD "*********"
 #define led 15
 void success(void);
 void fail(void);

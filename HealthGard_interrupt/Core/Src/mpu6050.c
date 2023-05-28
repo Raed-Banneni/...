@@ -13,7 +13,7 @@ void MPU6050_init(void) {
 			retry_count++;
 			continue;
 		}
-		//set int pin mode to active and open drain and activate the clear int flags on every read mode
+		//set int pin mode to active low and push-pull and activate the clear int flags on every read mode
 		temp_data = INT_OD_AH_CLRRD;
 		ret = HAL_I2C_Mem_Write(&hi2c1, (MPU6050_ADDR << 1) + 0, INT_PIN_CFG, 1,
 				&temp_data, 1, 100);
